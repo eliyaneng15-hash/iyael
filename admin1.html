@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Andalas Store</title>
+
+<style>
+/* ===== GLOBAL ===== */
+body{
+  font-family:Arial, sans-serif;
+  margin:0;
+  background:#f3f4f6;
+}
+
+/* ===== LANDING FULL SCREEN ===== */
+#admin-landing{
+  min-height:100vh;
+  background:#8fdcc8; /* warna sama dengan logo */
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:20px 10px;
+}
+
+
+
+#admin-landing h1{
+  font-size:40px;
+  margin-bottom:30px;
+}
+.admin-buttons button{
+  background:#000;
+  color:#fff;
+  padding:15px 20px;
+  border-radius:35px;
+  font-size:17px;
+  border:none;
+  cursor:pointer;
+  box-shadow:0 10px 25px rgba(0,0,0,.2);
+}
+
+/* ===== BANNER ADMIN (NYATU / FLAT) ===== */
+.admin-banner{
+  width:100%;
+  max-width:400px;
+  margin:20px 0 30px;
+
+  border-radius:0;
+  box-shadow:none;
+  background:none;
+
+  display:block;
+}
+
+/* ===== LOGIN ===== */
+#login-section{display:none}
+#admin-login{
+  max-width:420px;
+  margin:80px auto;
+  background:#fff;
+  padding:35px;
+  border-radius:25px;
+  box-shadow:0 15px 35px rgba(0,0,0,.15);
+}
+#admin-login h2{text-align:center;margin-bottom:20px}
+#admin-login input{
+  width:100%;
+  padding:14px;
+  margin:12px 0;
+  border-radius:12px;
+  border:1px solid #ddd;
+}
+#admin-login button{
+  width:100%;
+  background:#88D8C7;
+  padding:14px;
+  border-radius:30px;
+  border:none;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* ===== HEADER DASHBOARD ===== */
+#dashboard-header{
+  display:none;
+  background:#88D8C7;
+  padding:50px 20px;
+  text-align:center;
+}
+#dashboard-header h1{margin:0}
+
+/* ===== DASHBOARD CONTENT ===== */
+#dashboard-section{
+  display:none;
+  max-width:1200px;
+  margin:40px auto;
+  padding:30px;
+  background:#fff;
+  border-radius:25px;
+  box-shadow:0 15px 35px rgba(0,0,0,.1);
+}
+#dashboard-section h2{text-align:center}
+
+/* ===== TABLE ===== */
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:25px;
+}
+th,td{
+  border:1px solid #ddd;
+  padding:12px;
+  font-size:14px;
+  text-align:center;
+}
+th{
+  background:#88D8C7;
+}
+
+/* ===== BUTTON ===== */
+.action-btn{
+  background:#111827;
+  color:#fff;
+  padding:8px 20px;
+  border-radius:25px;
+  border:none;
+  cursor:pointer;
+}
+
+.delete-btn{
+  background:#e63946;
+  color:#fff;
+  padding:16px 40px;
+  border-radius:35px;
+  border:none;
+  margin-top:30px;
+  font-size:15px;
+  cursor:pointer;
+}
+
+.logout-btn{
+  background:#6b7280;
+  color:#fff;
+  padding:14px 35px;
+  border-radius:30px;
+  border:none;
+  margin-top:15px;
+  cursor:pointer;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+  #admin-landing h1{font-size:30px}
+  table{font-size:12px}
+}
+ /* FOOTER */
+        footer { background:#222; color:#eee; padding:20px; font-size:13px; }
+        .footer-content { max-width:1100px; margin:auto; display:flex; flex-wrap:wrap; justify-content:space-between; }
+.social-links{
+  margin-top:25px;
+  display:flex;
+  justify-content:center;
+  gap:20px;
+}
+
+.social-links img{
+  width:48px;
+  height:48px;
+  border-radius:10px;
+  transition:.3s;
+}
+
+.social-links img:hover{
+  transform:scale(1.1);
+}
+
+        .admin-profile { text-align: center; margin-bottom: 20px; }
+        .admin-profile img{
+  width:110px;
+  height:110px;
+  border-radius:50%;
+  object-fit:cover;
+  margin-bottom:15px;
+}
+.admin-profile p{
+  margin:8px 0;
+  font-size:16px;
+}
+.admin-profile strong{
+  display:block;
+  margin-top:10px;
+}
+
+
+        /* ===== CONTACT CARD (SEPERTI GAMBAR) ===== */
+#contact-section{
+  max-width:1100px;
+  margin:60px auto;
+  background:#fff;
+  padding:50px 30px;
+  border-radius:18px;
+  box-shadow:0 15px 40px rgba(0,0,0,.12);
+  text-align:center;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- LANDING -->
+<section id="admin-landing">
+  <h1>Admin Andalas Store</h1>
+
+  <!-- BANNER -->
+  <img src="BANNER.png" class="admin-banner" alt="Banner Admin">
+
+  <div class="admin-buttons">
+    <button onclick="showLogin()">Login Admin</button>
+  </div>
+</section>
+
+
+<!-- LOGIN -->
+<section id="login-section">
+  <div id="admin-login">
+    <h2>Login Admin</h2>
+    <input id="admin-user" placeholder="Username">
+    <input type="password" id="admin-pass" placeholder="Password">
+    <button onclick="loginAdmin()">Login</button>
+  </div>
+</section>
+
+<!-- DASHBOARD HEADER -->
+<header id="dashboard-header">
+  <h1>Dashboard Admin</h1>
+</header>
+
+<!-- DASHBOARD -->
+
+<section id="dashboard-section">
+  <h2>Data Pesanan Pelanggan</h2>
+  <div id="summary" style="text-align:center;margin:20px 0">
+  <p><strong>Total Transaksi:</strong> <span id="total-orders">0</span></p>
+  <p><strong>Total Pendapatan:</strong> Rp <span id="total-income">0</span></p>
+</div>
+
+
+  <table>
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>Nama</th>
+        <th>Produk</th>
+        <th>Harga</th>
+        <th>Tanggal</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody id="order-table"></tbody>
+  </table>
+
+  <div style="text-align:center">
+    <button class="delete-btn" onclick="clearOrders()">Hapus Semua Pesanan</button><br>
+    <button class="logout-btn" onclick="logoutAdmin()">Logout</button>
+  </div>
+</section>
+
+<!-- Contact Section -->
+    <section id="contact-section">
+        <div class="admin-profile">
+            <img src="eliya.PNG" alt="Foto Profil Admin">
+            <p><string>Nama  : Neng Eliya </string></p>
+            <p><string>Kontak : 085289033870</string></p>
+            <p><strong>Admin: eliyaneng15@gmail.com</strong></p>
+        </div>
+        <div class="social-links">
+            <img src="logo ig.JPG" alt="Instagram" onclick="window.open('https://www.instagram.com/elyakkuo', '_blank')">
+            <img src="logo wa.JPG" alt="WhatsApp" onclick="window.open('https://wa.me/6285289023870', '_blank')">
+            <img src="logo tiktok.JPG" alt="TikTok" onclick="window.open('https://www.tiktok.com/@eetkkc', '_blank')">
+            <img src="logo penjualan.PNG" alt="Facebook" onclick="window.open('https://www.facebook.com/share/1aMb9iXujU/', '_blank')">
+        </div>
+    </section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-content">
+    <div class="footer-contact">
+      <h4>Hubungi Kami</h4>
+      <p>WhatsApp: 0852-8902-3870</p>
+      <p>Email: eliyaneng15@gmail.com</p>
+      <p>Alamat: Jl. Kukusan Timur No.565, Kedawung, Pilangsari, Cirebons</p>
+    </div>
+    <div class="footer-copy">
+      <p>© 2025 Landing Page Produk Berkualitas </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+const ADMIN_USER = "admineliya";
+const ADMIN_PASS = "12345";
+let orders = JSON.parse(localStorage.getItem('orders')) || [];
+
+/* ===== LOGIN ===== */
+function showLogin(){
+  document.getElementById('admin-landing').style.display='none';
+  document.getElementById('login-section').style.display='block';
+}
+
+function loginAdmin(){
+  const user=document.getElementById('admin-user').value;
+  const pass=document.getElementById('admin-pass').value;
+
+  if(user===ADMIN_USER && pass===ADMIN_PASS){
+    document.getElementById('login-section').style.display='none';
+    document.getElementById('dashboard-header').style.display='block';
+    document.getElementById('dashboard-section').style.display='block';
+    renderOrders();
+  }else{
+    alert("Username atau password salah");
+  }
+}
+
+function logoutAdmin(){
+  location.reload();
+}
+
+/* ===== RENDER ORDERS ===== */
+function renderOrders(){
+  const table = document.getElementById('order-table');
+  table.innerHTML = '';
+
+  let totalIncome = 0;
+
+  if(!orders.length){
+    table.innerHTML = '<tr><td colspan="6">Belum ada pesanan</td></tr>';
+  } else {
+    orders.forEach((o,i)=>{
+      totalIncome += o.total || 0;
+
+      table.innerHTML += `
+        <tr>
+          <td>${i+1}</td>
+          <td>${o.name || '-'}</td>
+          <td>${o.product}</td>
+          <td>Rp ${o.total.toLocaleString()}</td>
+          <td>${o.date}</td>
+          <td>
+            <button class="action-btn" onclick='printReceipt(${JSON.stringify(o)})'>Print</button>
+<button class="action-btn" onclick='downloadPDF(${JSON.stringify(o)})'>PDF</button>
+
+          </td>
+        </tr>
+      `;
+    });
+  }
+
+  document.getElementById('total-orders').innerText = orders.length;
+  document.getElementById('total-income').innerText = totalIncome.toLocaleString();
+}
+
+
+/* ===== STRUK PDF ===== */
+function printReceipt(order){
+  const win = window.open('', '', 'width=400,height=600');
+
+  win.document.write(`
+  <html>
+  <head>
+    <title>Struk Pembelian</title>
+    <style>
+      @page{
+        size: 80mm auto;
+        margin: 0;
+      }
+      body{
+        margin:0;
+        padding:0;
+        font-family: Arial, sans-serif;
+      }
+      .receipt{
+  width:80mm;
+  padding:12mm 8mm;
+  box-sizing:border-box;
+  text-align:center;
+
+  /* ===== BORDER SEPERTI PDF ===== */
+  border:0.4mm solid #b4b4b4; /* abu-abu muda */
+  background:transparent;    /* TRANSPARAN */
+}
+
+     h1{
+  font-size:14px;
+  margin-bottom:8px;
+}
+p{
+  font-size:11px;
+  margin:6px 0;
+}
+.status{
+  font-weight:bold;
+  font-size:12px;
+}
+
+      {
+  border:none;
+  border-top:0.4mm solid #b4b4b4; /* sama dengan PDF */
+  margin:8px 0;
+}
+
+      .status{font-weight:bold;font-size:13px}
+    </style>
+  </head>
+  <body>
+    <div class="receipt">
+      <h1>Struk Pembelian</h1>
+
+      <hr>
+
+      <p><strong>Tanggal</strong><br>${order.date}</p>
+      <p><strong>Nama Pembeli</strong><br>${order.name}</p>
+      <p><strong>Produk</strong><br>${order.product}</p>
+<p>Jumlah: ${order.qty}</p>
+<p><strong>Total</strong><br>Rp ${order.total.toLocaleString()}</p>
+
+      <hr>
+
+      <p class="status">LUNAS</p>
+
+      <hr>
+
+      <p>WhatsApp: 0852-8902-3870</p>
+      <p>Email: eliyaneng15@gmail.com</p>
+    </div>
+  </body>
+  </html>
+  `);
+
+  win.document.close();
+  win.focus();
+  win.print();
+}
+
+
+/* ===== CLEAR ===== */
+function clearOrders(){
+  if(confirm("Hapus semua pesanan?")){
+    localStorage.removeItem('orders');
+    orders=[];
+    renderOrders();
+  }
+}
+function downloadPDF(order){
+  const { jsPDF } = window.jspdf;
+
+  const pdf = new jsPDF({
+    orientation: "portrait",
+    unit: "mm",
+    format: [80, 200]
+  });
+
+  /* ===== BORDER STRUK ===== */
+ pdf.setDrawColor(180);   // abu-abu muda
+pdf.setLineWidth(0.3);  // garis tipis
+pdf.rect(4, 4, 72, 192); // TIDAK ADA FILL (transparan)
+
+  let y = 15;
+
+  /* ===== JUDUL ===== */
+  pdf.setFontSize(14);
+  pdf.setFont(undefined, "bold");
+  pdf.text("Terima kasih telah", 40, y, { align: "center" });
+  y += 7;
+  pdf.text("berbelanja", 40, y, { align: "center" });
+  y += 7;
+  pdf.text("di Toko Andalas", 40, y, { align: "center" });
+
+  y += 6;
+  pdf.line(8, y, 72, y);
+  y += 8;
+
+  /* ===== ISI ===== */
+  pdf.setFontSize(11);
+  pdf.setFont(undefined, "bold");
+  pdf.text("Tanggal:", 40, y, { align: "center" });
+  y += 6;
+  pdf.setFont(undefined, "normal");
+  pdf.text(order.date, 40, y, { align: "center" });
+
+  y += 8;
+  pdf.setFont(undefined, "bold");
+  pdf.text("Nama Pembeli:", 40, y, { align: "center" });
+  y += 6;
+  pdf.setFont(undefined, "normal");
+  pdf.text(order.name, 40, y, { align: "center" });
+
+  y += 8;
+  pdf.setFont(undefined, "bold");
+  pdf.text("Produk:", 40, y, { align: "center" });
+  y += 6;
+  pdf.setFont(undefined, "normal");
+  pdf.text(order.product, 40, y, { align: "center", maxWidth: 60 });
+
+  y += 8;
+  pdf.setFont(undefined, "bold");
+  pdf.text("Harga:", 40, y, { align: "center" });
+  y += 6;
+  pdf.setFont(undefined, "normal");
+  pdf.text(`Rp ${order.price?.toLocaleString() || order.total.toLocaleString()}`, 40, y, { align: "center" });
+
+  y += 8;
+  pdf.setFont(undefined, "bold");
+  pdf.text("Jumlah:", 40, y, { align: "center" });
+  y += 6;
+  pdf.setFont(undefined, "normal");
+  pdf.text(String(order.qty), 40, y, { align: "center" });
+
+  y += 8;
+  pdf.setFont(undefined, "bold");
+  pdf.text("Total Bayar:", 40, y, { align: "center" });
+  y += 6;
+  pdf.setFont(undefined, "normal");
+  pdf.text(`Rp ${order.total.toLocaleString()}`, 40, y, { align: "center" });
+
+  y += 8;
+  pdf.line(8, y, 72, y);
+  y += 8;
+
+  /* ===== STATUS ===== */
+  pdf.setFontSize(12);
+  pdf.setFont(undefined, "bold");
+  pdf.text("Status: LUNAS", 40, y, { align: "center" });
+
+  y += 8;
+  pdf.line(8, y, 72, y);
+  y += 10;
+
+  /* ===== KONTAK ===== */
+  pdf.setFontSize(11);
+  pdf.setFont(undefined, "bold");
+  pdf.text("Hubungi Kami", 40, y, { align: "center" });
+
+  y += 8;
+  pdf.setFont(undefined, "normal");
+  pdf.text("WhatsApp: 0852-8902-3870", 40, y, { align: "center" });
+  y += 6;
+  pdf.text("Email: eliyaneng15@gmail.com", 40, y, { align: "center" });
+
+  pdf.save(`Struk-${order.name}.pdf`);
+}
+
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+</body>
+</html>
